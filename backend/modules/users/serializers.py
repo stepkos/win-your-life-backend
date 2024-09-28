@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
-    is_dark_mode = serializers.BooleanField(required=False)
-    is_private = serializers.BooleanField(required=False)
+class UserProfileSerializer(serializers.Serializer):
+    is_dark_mode = serializers.BooleanField(required=True)
+    is_private = serializers.BooleanField(required=True)
 
     def to_representation(self, instance):
         return {
@@ -19,8 +19,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
+    user_profile = UserProfileSerializer()
+    friends = serializers.ListField(child=serializers.EmailField())
 
     def to_representation(self, instance):
         return {

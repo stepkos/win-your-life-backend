@@ -12,6 +12,7 @@ class UserProfile(BaseModel):
 
 
 class User(BaseModel):
+
     email = models.EmailField(unique = True)
     user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
     friends = models.ManyToManyField("self", blank = True, related_name="friends")
