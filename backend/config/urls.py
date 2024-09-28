@@ -10,5 +10,6 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('', include('modules.authentication.urls')),
+    path('', include('modules.habits.urls')),
     path('', include('modules.users.urls')),
 ]

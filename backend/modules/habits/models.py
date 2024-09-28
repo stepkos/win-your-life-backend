@@ -19,8 +19,8 @@ class Day(BaseModel):
     def __str__(self):
         return f"{self.user} - {self.date}"
 
-    def post_save(self, *args, **kwargs):
-        is_new = self.pk is None
+    def save(self, *args, **kwargs):
+        is_new = self._state.adding
         super().save(*args, **kwargs)
 
         if is_new:
@@ -29,7 +29,7 @@ class Day(BaseModel):
 
 
 class TaskForDay(BaseModel):
-    day = models.ForeignKey(Day, on_delete=models.CASCADE)
+    day = models.ForeignKey(Day, on_delete=models.CASCADE, related_name="tasks")
     is_done = models.BooleanField(default=False)
     content = models.CharField(max_length=255)
 
