@@ -9,6 +9,7 @@ def custom_exception_handler(exc, context):
         handlers = {
             'BadCredentialsException': _handler_bad_credentials,
             'ValidationError': _handler_validation_error,
+            'IntegrityError': _handler_validation_error,
             # Add more handlers as needed
         }
         res = exception_handler(exc, context)
@@ -28,6 +29,9 @@ def custom_exception_handler(exc, context):
 
 def _handler_validation_error(exc, context, res):
     return "Invalid data", 400
+
+def _handler_integrity_error(exc, context, res):
+    return "Integrity error", 400
 
 
 def _handler_bad_credentials(exc, context, res):
