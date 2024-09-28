@@ -6,10 +6,12 @@ from rest_framework.views import exception_handler
 def custom_exception_handler(exc, context):
     try:
         exception_class = exc.__class__.__name__
+        print(exception_class)
         handlers = {
             "BadCredentialsException": _handler_bad_credentials,
             "ValidationError": _handler_validation_error,
             "IntegrityError": _handler_validation_error,
+            'InvalidToken': _handler_permission_denied,
             # Add more handlers as needed
         }
         res = exception_handler(exc, context)
@@ -43,4 +45,4 @@ def _handler_bad_credentials(exc, context, res):
 
 
 def _handler_permission_denied(exc, context, res):
-    return exc.detail, 400
+    return 'Invalid or expired token', 401
