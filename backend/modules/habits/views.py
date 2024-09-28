@@ -11,7 +11,6 @@ from modules.habits.serializers import HabitSerializer, DaySerializer, TaskForDa
 
 class HabitViewSet(viewsets.ModelViewSet):
     serializer_class = HabitSerializer
-    # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Habit.objects.filter(user=self.request.user)
@@ -21,11 +20,10 @@ class HabitViewSet(viewsets.ModelViewSet):
 
 
 class CurrentDay(APIView):
-    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
 
-        current_day = Day.objects.filter(
+        current_day, created = Day.objects.get_or_create(
             user=request.user,
             date=timezone.now().date()
         )
