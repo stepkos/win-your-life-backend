@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'modules.authentication',
     'modules.core',
+    'modules.emails',
     'modules.habits',
     'modules.users',
 ]
