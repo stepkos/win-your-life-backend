@@ -18,6 +18,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from config import settings
+from modules.authentication.exceptions import ActivationTokenExpiredException
 from modules.authentication.models import CustomUser, ActivationToken
 from modules.authentication.serializers import (
     CustomTokenObtainPairSerializer,
@@ -94,6 +95,10 @@ class ActivationView(APIView):
     )
     def get(self, request, token_id):
         token = ActivationToken.objects.get(id=token_id)
+
+        if token.expiration_date < datetime.now():
+            raise ActivationTokenExpiredException("Activation token expired")
+
         user = token.user
         user.is_active = True
         user.save()

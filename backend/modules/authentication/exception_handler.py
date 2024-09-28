@@ -12,6 +12,7 @@ def custom_exception_handler(exc, context):
             "ValidationError": _handler_validation_error,
             "IntegrityError": _handler_validation_error,
             'InvalidToken': _handler_permission_denied,
+            'ActivationTokenExpiredException': _handler_token_expired,
             # Add more handlers as needed
         }
         res = exception_handler(exc, context)
@@ -46,3 +47,6 @@ def _handler_bad_credentials(exc, context, res):
 
 def _handler_permission_denied(exc, context, res):
     return 'Invalid or expired token', 401
+
+def _handler_token_expired(exc, context, res):
+    return exc.detail, 401
