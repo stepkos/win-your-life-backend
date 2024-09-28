@@ -8,3 +8,8 @@ inflection==0.5.1
 packaging==24.1
 pyyaml==6.0.2
 uritemplate==4.1.1
+drf-spectacular==0.27.2
+jsonschema==4.23.0
+jsonschema-specifications==2023.12.1
+referencing==0.35.1
+rpds-py==0.20.0
