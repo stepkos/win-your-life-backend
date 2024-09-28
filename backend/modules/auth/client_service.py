@@ -1,8 +1,8 @@
 from joblib.externals.cloudpickle import instance
 
-from authapp.authentication_service import AuthenticationService
-from authapp.client_serializer import ClientSerizalizer
-from authapp.models import Client
+from modules.auth.authentication_service import AuthenticationService
+from modules.auth.client_serializer import ClientSerizalizer
+from modules.auth.models import Client
 
 
 class ClientService:

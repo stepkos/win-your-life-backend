@@ -1,7 +1,7 @@
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from authapp.exceptions import BadCredentialsException
-from authapp.models import Client
+from modules.auth.exceptions import BadCredentialsException
+from modules.auth.models import Client
 
 
 class AuthenticationService:

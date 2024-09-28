@@ -2,7 +2,7 @@ import uuid
 
 from rest_framework import serializers
 
-from authapp.models import Client
+from modules.auth.models import Client
 
 
 class ClientSerizalizer(serializers.ModelSerializer):

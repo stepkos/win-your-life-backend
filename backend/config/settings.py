@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'authapp',
     'rest_framework_simplejwt.token_blacklist',
+    'modules.auth',
 ]
 
 REST_FRAMEWORK = {
@@ -83,7 +83,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-
 
 
 MIDDLEWARE = [
