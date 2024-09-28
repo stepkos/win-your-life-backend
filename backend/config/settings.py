@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'modules.authentication',
+    'modules.users',
 ]
 
 AUTH_PWD_MODULE="django.contrib.auth.password_validation."
@@ -66,7 +67,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    "EXCEPTION_HANDLER": "modules.authentication.exception_handler.custom_exception_handler"
+    # "EXCEPTION_HANDLER": "modules.authentication.exception_handler.custom_exception_handler"
 }
 
 AUTH_USER_MODEL = "authentication.CustomUser"

@@ -13,16 +13,22 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from modules.authentication.models import CustomUser
 from modules.authentication.serializers import CustomTokenObtainPairSerializer, RegisterSerializer
+from modules.users.user_service import UserService
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
-class RegisterView(generics.CreateAPIView):
-    queryset = CustomUser.objects.all()
+class RegisterView(APIView):
     permission_classes = (AllowAny,)
-    serializer_class = RegisterSerializer
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.create(serializer.validated_data)
+        UserService().create_user(serializer.data['email'])
+        return Response(serializer.data)
 
 
 class Profile(APIView):
