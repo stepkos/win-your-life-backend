@@ -1,12 +1,11 @@
 from django.db import models
 
+from modules.authentication.models import CustomUser
 from modules.core.models import BaseModel
-
-from django.contrib.auth.models import User
 
 
 class Habit(BaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     content = models.CharField(max_length=255)
 
     def __str__(self):
@@ -14,7 +13,7 @@ class Habit(BaseModel):
 
 
 class Day(BaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date = models.DateField()
 
     def __str__(self):
