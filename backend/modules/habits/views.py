@@ -1,6 +1,6 @@
 from django.utils import timezone
 from rest_framework import viewsets
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -33,3 +33,10 @@ class CurrentDay(APIView):
 
         instance = DaySerializer(current_day)
         return Response(instance.data)
+
+
+class TaskRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    serializer_class = TaskForDaySerializer
+
+    def get_queryset(self):
+        return TaskForDay.objects.filter(day__user=self.request.user)
