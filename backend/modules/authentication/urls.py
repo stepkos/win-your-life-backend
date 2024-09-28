@@ -3,7 +3,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from modules.authapp import views
+from modules.authentication import views
 
 urlpatterns = [
     path('api/client', views.Profile.as_view()),
