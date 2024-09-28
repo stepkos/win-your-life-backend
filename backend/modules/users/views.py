@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from modules.users.serializers import UserSerializer, ChangeUserFriendsSerializer, ChangeUserSerializer, \
-    UserProfileSerializer
+    UserProfileSerializer, UserInfoSerializer, UserInfoChangeNameSerializer
 from modules.users.user_service import UserService
 
 
@@ -77,8 +77,8 @@ class UserView(APIView):
     permission_classes = [IsAuthenticated]
 
     @extend_schema(
-        summary="Get user info",
-        description="Get user info",
+        summary="Get user global info",
+        description="Get user global info",
         responses={200: UserSerializer}
     )
     def get(self, request):
@@ -98,3 +98,68 @@ class UserView(APIView):
         user.email = validated_data.validated_data['email']
         user.save()
         return Response({'content': 'Email changed'})
+
+
+class UserInfoView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        summary="Get user info",
+        description="Get user info",
+        responses={200: UserInfoSerializer}
+    )
+    def get(self, request):
+        user = UserService().get_user_by_email(request.user.email)
+        return Response({'content': UserInfoSerializer(user.user_info).data})
+
+    @extend_schema(
+        summary="Change user first name and last name",
+        description="Change user first name and last name",
+        parameters=[OpenApiParameter(name='first_name', description='first name', required=True, type=str),
+                    OpenApiParameter(name='last_name', description='last name', required=True, type=str)],
+        responses={200: str}
+    )
+    def put(self, request):
+        user = UserService().get_user_by_email(request.user.email)
+        user_info = user.user_info
+        validated_data = UserInfoChangeNameSerializer(data=request.data)
+        validated_data.is_valid(raise_exception=True)
+        validated_data.update(user_info, validated_data.validated_data)
+        return Response({'content': 'Info updated'})
+
+
+class UserStreakView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        summary="Get streak",
+        description="Get streak",
+        responses={200: UserInfoSerializer}
+    )
+    def get(self, request):
+        user = UserService().get_user_by_email(request.user.email)
+        return Response({'content': UserInfoSerializer(user.user_info).data})
+
+    @extend_schema(
+        summary="Delete streak",
+        description="Delete streak",
+        responses={200: str}
+    )
+    def delete(self, request):
+        user = UserService().get_user_by_email(request.user.email)
+        user_info = user.user_info
+        user_info.streak = 0
+        user_info.save()
+        return Response({'content': 'Streak deleted'})
+
+    @extend_schema(
+        summary="Increment streak",
+        description="Increment streak",
+        responses={200: str}
+    )
+    def patch(self, request):
+        user = UserService().get_user_by_email(request.user.email)
+        user_info = user.user_info
+        user_info.streak += 1
+        user_info.save()
+        return Response({'content': 'Streak incremented'})
