@@ -29,7 +29,7 @@ class Profile(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response({'content':request.user.username})
+        return Response({'content':request.user.email})
 
 
 
