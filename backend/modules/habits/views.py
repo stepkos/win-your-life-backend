@@ -6,7 +6,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from modules.habits.models import Habit, Day, TaskForDay
-from modules.habits.serializers import HabitSerializer, DaySerializer, TaskForDaySerializer
+from modules.habits.serializers import (
+    HabitSerializer,
+    DaySerializer,
+    TaskForDaySerializer,
+)
 
 
 class HabitViewSet(viewsets.ModelViewSet):
@@ -24,8 +28,7 @@ class CurrentDay(APIView):
     def get(self, request):
 
         current_day, created = Day.objects.get_or_create(
-            user=request.user,
-            date=timezone.now().date()
+            user=request.user, date=timezone.now().date()
         )
 
         instance = DaySerializer(current_day)

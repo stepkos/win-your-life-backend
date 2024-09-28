@@ -5,7 +5,7 @@ from modules.habits.models import Habit, Day, TaskForDay
 class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
-        fields = ['id', 'content', 'updated_at']
+        fields = ["id", "content", "updated_at"]
 
 
 class TaskForDaySerializer(serializers.ModelSerializer):
@@ -19,4 +19,4 @@ class DaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Day
-        fields = ['id', 'date', "tasks"]
+        fields = ["id", "date", "tasks"]

@@ -7,9 +7,9 @@ def custom_exception_handler(exc, context):
     try:
         exception_class = exc.__class__.__name__
         handlers = {
-            'BadCredentialsException': _handler_bad_credentials,
-            'ValidationError': _handler_validation_error,
-            'IntegrityError': _handler_validation_error,
+            "BadCredentialsException": _handler_bad_credentials,
+            "ValidationError": _handler_validation_error,
+            "IntegrityError": _handler_validation_error,
             # Add more handlers as needed
         }
         res = exception_handler(exc, context)
@@ -22,13 +22,17 @@ def custom_exception_handler(exc, context):
             message = str(exc)
             status_code = HTTP_500_INTERNAL_SERVER_ERROR
 
-        return Response(data={'error': message}, status=status_code)
+        return Response(data={"error": message}, status=status_code)
     except Exception as e:
-        return Response(data={'error': 'Internal server error'}, status=HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(
+            data={"error": "Internal server error"},
+            status=HTTP_500_INTERNAL_SERVER_ERROR,
+        )
 
 
 def _handler_validation_error(exc, context, res):
     return "Invalid data", 400
+
 
 def _handler_integrity_error(exc, context, res):
     return "Integrity error", 400
