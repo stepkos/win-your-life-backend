@@ -71,6 +71,7 @@ class UserProfileView(APIView):
         validated_data = UserProfileSerializer(data=request.data)
         validated_data.is_valid(raise_exception=True)
         validated_data.update(user_profile, validated_data.validated_data)
+        return Response({'content': 'Profile updated'})
 
 class UserView(APIView):
     permission_classes = [IsAuthenticated]
@@ -96,3 +97,4 @@ class UserView(APIView):
         validated_data.is_valid(raise_exception=True)
         user.email = validated_data.validated_data['email']
         user.save()
+        return Response({'content': 'Email changed'})
