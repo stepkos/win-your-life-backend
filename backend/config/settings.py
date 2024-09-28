@@ -198,3 +198,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+APPLICATION_PORT = 8000
+HOST_NAME = 'localhost'
+
+EMAIL_LOGIN = 'molrib1939@gmail.com'
+EMAIL_PASSWORD = 'rqfzbrubsbswdbae'

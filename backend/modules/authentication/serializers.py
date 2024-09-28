@@ -27,12 +27,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
-class ProfileSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = CustomUser
-        fields = '__all__'
-
+class ActivationSerializer(serializers.Serializer):
+    token = serializers.CharField(required=True)
 
 
 

@@ -24,13 +24,13 @@ def send_email(
     return True
 
 
-class EmailService:
-    DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
-
-    def __init__(self):
-        self.login = config.EMAIL_USER
-        self.password = config.EMAIL_APP_CLIENT_ACCESS_CODE
-
-    def send_email_to_yourself(self, subject: str, body: str) -> bool:
-        message = create_message(self.login, self.login, subject, body)
-        return send_email(message, self.login, self.password, self.login)
+# class EmailService:
+#     DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+#
+#     def __init__(self):
+#         self.login = config.EMAIL_USER
+#         self.password = config.EMAIL_APP_CLIENT_ACCESS_CODE
+#
+#     def send_email_to_yourself(self, subject: str, body: str) -> bool:
+#         message = create_message(self.login, self.login, subject, body)
+#         return send_email(message, self.login, self.password, self.login)
