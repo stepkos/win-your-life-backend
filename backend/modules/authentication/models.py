@@ -11,7 +11,8 @@ from modules.core.models import BaseModel
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
-    is_active = models.BooleanField(default=False)
+    # is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
