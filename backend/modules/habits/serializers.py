@@ -20,3 +20,9 @@ class DaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Day
         fields = ["id", "date", "tasks"]
+
+
+class ArchiveDaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Day
+        fields = ["id", "date", "is_won"]

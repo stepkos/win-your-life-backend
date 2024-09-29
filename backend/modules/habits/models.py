@@ -19,6 +19,14 @@ class Day(BaseModel):
     def __str__(self):
         return f"{self.user} - {self.date}"
 
+    @property
+    def is_won(self):
+        """80% of tasks must be done to win the day."""
+        if not self.tasks.exists():
+            return False
+
+        return self.tasks.filter(is_done=True).count() / self.tasks.count() >= 0.8
+
     def save(self, *args, **kwargs):
         is_new = self._state.adding
         super().save(*args, **kwargs)

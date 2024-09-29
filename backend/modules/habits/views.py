@@ -10,6 +10,7 @@ from modules.habits.serializers import (
     HabitSerializer,
     DaySerializer,
     TaskForDaySerializer,
+    ArchiveDaySerializer,
 )
 
 
@@ -40,3 +41,12 @@ class TaskRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 
     def get_queryset(self):
         return TaskForDay.objects.filter(day__user=self.request.user)
+
+
+class ArchiveDayList(ListAPIView):
+    serializer_class = ArchiveDaySerializer
+
+    def get_queryset(self):
+        return Day.objects.filter(
+            user=self.request.user, date__lt=timezone.now().date()
+        )
