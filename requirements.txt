@@ -13,3 +13,6 @@ jsonschema==4.23.0
 jsonschema-specifications==2023.12.1
 referencing==0.35.1
 rpds-py==0.20.0
+faker==30.0.0
+python-dateutil==2.9.0.post0
+six==1.16.0
